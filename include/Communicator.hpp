@@ -5,11 +5,12 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <functional>
 
 struct Process
 {
-    FILE* in;
-    FILE* out;
+    int in[2];
+    int out[2];
     pid_t pid;
 };
 
@@ -21,6 +22,8 @@ private:
 public:
     const std::map<std::string, Process>& getProcesses() { return processes; }
 
-    void CreateProcess(const std::string& name, const std::vector<std::string>& processargs);
+    void CreateProcess(const std::string& name, const std::function<void(Process&)>& processFunc);
+    
     void CheckProcessStatuses();
+    bool CheckForChildOutput(std::string& outstring, const std::string& procname);
 };

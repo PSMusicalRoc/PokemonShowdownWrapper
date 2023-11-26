@@ -5,19 +5,30 @@
 
 #include "Communicator.hpp"
 
+void CreatePokemonShowdownProcess(Process& proc)
+{
+    std::cout << "This will be the pokemon showdown process, i think" << std::endl;
+
+    exit(0);
+}
+
 int main() {
     Communicator comm;
     
-    for (int i = 0; i < 15; i++)
-    {
-        comm.CreateProcess(std::to_string(i + 1), {});
-        usleep(500000);
-    }
+    comm.CreateProcess("Showdown", CreatePokemonShowdownProcess);
+
+    std::string procout;
 
     while (!comm.getProcesses().empty())
     {
         comm.CheckProcessStatuses();
+        if (comm.CheckForChildOutput(procout, "Showdown"))
+        {
+            std::cout << procout;
+        }
     }
+
+    std::cout << std::endl;
 
     return 0;
 }
