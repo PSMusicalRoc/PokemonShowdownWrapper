@@ -1,1 +1,2 @@
-env PATH=$(pwd)/vendor/nodejs/linux ./server
+env PATH=$(pwd)/vendor/nodejs/linux/bin:$PATH node vendor/pokemon-showdown/build
+env PATH=$(pwd)/vendor/nodejs/linux/bin:$PATH ./server

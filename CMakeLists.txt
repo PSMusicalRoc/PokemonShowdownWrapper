@@ -6,8 +6,10 @@ project(NativePokemonGame
 set(CXX_STANDARD 11)
 
 add_subdirectory(Server)
+add_subdirectory(PlayerPort)
 
 install(TARGETS server)
+install(TARGETS player_client)
 install(DIRECTORY vendor
     DESTINATION bin
     USE_SOURCE_PERMISSIONS

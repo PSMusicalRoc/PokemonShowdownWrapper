@@ -22,12 +22,23 @@ void CreatePokemonShowdownProcess(Process& proc)
     exit(0);
 }
 
+void StartPlayerPort(Process& proc)
+{
+    char* const argv[] = {NULL};
+    execvp("./player_client", argv);
+
+    exit(0);
+}
+
 int main() {
     Communicator comm;
     
     comm.CreateProcess("Showdown", CreatePokemonShowdownProcess);
+    comm.CreateProcess("PlayerClient", StartPlayerPort);
 
     std::string procout;
+
+    comm.WriteToChildInput(">start {\"formatid\":\"gen5randombattle\"}\n", "Showdown");
 
     while (!comm.getProcesses().empty())
     {
@@ -35,7 +46,6 @@ int main() {
         if (comm.CheckForChildOutput(procout, "Showdown"))
         {
             std::cout << procout;
-            // comm.KillProcess("Showdown");
         }
     }
 

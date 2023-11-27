@@ -26,4 +26,5 @@ public:
     void KillProcess(const std::string& name);
     void CheckProcessStatuses();
     bool CheckForChildOutput(std::string& outstring, const std::string& procname);
+    bool WriteToChildInput(const std::string& message, const std::string& procname);
 };

@@ -155,3 +155,22 @@ bool Communicator::CheckForChildOutput(std::string& outstring, const std::string
 
     return outstring != "";
 }
+
+bool Communicator::WriteToChildInput(const std::string& message, const std::string& procname)
+{
+    if (processes.find(procname) == processes.end())
+    {
+        return false;
+    }
+    Process& proc = processes.at(procname);
+
+    ssize_t retval = write(proc.in[1], (void*)(message.c_str()), sizeof(char) * message.size());
+    if (retval != sizeof(char) * message.size())
+    {
+        std::cerr << "Not enough bytes written with write command!" << std::endl;
+        std::cerr << "Wrote " << retval << " but expected to write " << sizeof(char) * message.size() << std::endl;
+        return false;
+    }
+
+    return true;
+}
