@@ -1,0 +1,1 @@
+env PATH=$(pwd)/vendor/nodejs/linux ./server

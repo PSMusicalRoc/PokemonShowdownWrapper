@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "intelliSenseMode": "gcc-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "includePath": [
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/Server/include"
+            ],
+            "compilerPath": "/usr/bin/clang"
+        }
+    ],
+    "version": 4
+}

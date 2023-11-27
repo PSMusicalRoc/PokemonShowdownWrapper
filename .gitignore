@@ -2,6 +2,6 @@
 Makefile
 *.make
 obj/
-bin/
+build/
 compile_commands.json
 
