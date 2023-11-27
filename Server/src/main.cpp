@@ -35,7 +35,7 @@ int main() {
         if (comm.CheckForChildOutput(procout, "Showdown"))
         {
             std::cout << procout;
-            comm.KillProcess("Showdown");
+            // comm.KillProcess("Showdown");
         }
     }
 
