@@ -18,6 +18,10 @@ install(DIRECTORY vendor/pokemon-showdown
     DESTINATION bin/vendor
     USE_SOURCE_PERMISSIONS
 )
+install(DIRECTORY res/
+    DESTINATION bin
+    USE_SOURCE_PERMISSIONS
+)
 install(PROGRAMS Server/run_server
     DESTINATION bin
 )

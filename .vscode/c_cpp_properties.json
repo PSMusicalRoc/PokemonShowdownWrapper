@@ -2,17 +2,19 @@
     "configurations": [
         {
             "name": "Linux",
-            "intelliSenseMode": "gcc-x64",
+            "intelliSenseMode": "linux-clang-x64",
             "cStandard": "c11",
             "cppStandard": "c++11",
             "includePath": [
-                "${workspaceFolder}/include",
                 "${workspaceFolder}/Server/include",
+                "${workspaceFolder}/PlayerPort/include",
                 "${workspaceFolder}/vendor/imgui",
                 "${workspaceFolder}/vendor/imgui/backends",
-                "${workspaceFolder}/vendor/imgui/misc/cpp"
-            ],
-            "compilerPath": "/usr/bin/clang"
+                "${workspaceFolder}/vendor/imgui/misc/cpp",
+                "${workspaceFolder}/vendor/nlohmannjson",
+                "${workspaceFolder}/vendor/SDL2/include",
+                "${workspaceFolder}/vendor/SDL2_image/include"
+            ]
         }
     ],
     "version": 4

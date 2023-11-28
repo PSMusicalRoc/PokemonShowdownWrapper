@@ -5,6 +5,10 @@
 #include <imgui_impl_sdl2.h>
 #include <imgui_impl_sdlrenderer2.h>
 
+#include "PShowdownParser.hpp"
+#include "QuickReading.hpp"
+#include <unistd.h>
+
 int main(int argc, char** argv)
 {
     SDL_Window* window = NULL;
@@ -13,6 +17,14 @@ int main(int argc, char** argv)
     {
         std::cerr << "SDL could not initialize!" << std::endl;
         std::cerr << SDL_GetError() << std::endl;
+        return -1;
+    }
+
+    if (IMG_Init(IMG_INIT_PNG) == 0)
+    {
+        std::cerr << "SDL_IMG could not be initialized!" << std::endl;
+        std::cerr << IMG_GetError() << std::endl;
+        SDL_Quit();
         return -1;
     }
     
@@ -47,6 +59,7 @@ int main(int argc, char** argv)
 
     SDL_Event e;
     bool windowShouldRun = true;
+    PShowdownParser parser(ren);
 
     while (windowShouldRun)
     {
@@ -62,6 +75,15 @@ int main(int argc, char** argv)
         if (!windowShouldRun)
         {
             continue;
+        }
+
+        std::string serverInput;
+        QuickRead(serverInput, STDIN_FILENO);
+        if (serverInput != "")
+        {
+            std::string send_back = parser.parsePShowdownOutput(serverInput);
+            write(STDOUT_FILENO, (void*)(send_back.c_str()),
+                sizeof(char) * send_back.size());
         }
 
         ImGui_ImplSDL2_NewFrame();
@@ -113,6 +135,18 @@ int main(int argc, char** argv)
         SDL_SetRenderDrawColor(ren, 100, 100, 0, 255);
         SDL_Rect fullscreen = {0, 0, 1920, 1080};
         SDL_RenderFillRect(ren, &fullscreen);
+
+        if (parser.front_textures.find("substitute") != parser.front_textures.end())
+        {
+            SDL_Rect dst_rect = { 0, 0, 96, 96 };
+            SDL_RenderCopy(ren, parser.front_textures.at("substitute"), NULL, &dst_rect);
+        }
+
+        if (parser.back_textures.find("substitute") != parser.back_textures.end())
+        {
+            SDL_Rect dst_rect = { 50, 50, 96, 96 };
+            SDL_RenderCopy(ren, parser.back_textures.at("substitute"), NULL, &dst_rect);
+        }
 
         ImGui::Render();
         ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());

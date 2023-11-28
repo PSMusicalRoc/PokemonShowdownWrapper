@@ -4,6 +4,7 @@
 #include <sys/types.h>
 
 #include "Communicator.hpp"
+#include "ShowdownOutputSplitter.hpp"
 
 void CreatePokemonShowdownProcess(Process& proc)
 {
@@ -37,10 +38,15 @@ int main() {
     comm.CreateProcess("PlayerClient", StartPlayerPort);
 
     std::string procout;
+    std::vector<std::string> messages = {
+        ">start {\"formatid\":\"gen5randombattle\"}\n",
+        ">player p1 {\"name\":\"Roc\"}\n",
+        ">player p2 {\"name\":\"AI\"}\n"
+    };
+    int messagesSent = 0;
 
-    comm.WriteToChildInput(">start {\"formatid\":\"gen5randombattle\"}\n", "Showdown");
-    comm.WriteToChildInput(">player p1 {\"name\":\"Roc\"}\n", "Showdown");
-    comm.WriteToChildInput(">player p2 {\"name\":\"AI\"}\n", "Showdown");
+    comm.WriteToChildInput(messages[messagesSent], "Showdown");
+    messagesSent++;
 
     while (!comm.getProcesses().empty())
     {
@@ -54,6 +60,22 @@ int main() {
         if (comm.CheckForChildOutput(procout, "Showdown"))
         {
             std::cout << procout;
+            
+            std::string p1Write;
+            SplitShowdownOutput(procout, &p1Write);
+            comm.WriteToChildInput(p1Write, "PlayerClient");
+
+            if (messagesSent < messages.size())
+            {
+                comm.WriteToChildInput(messages[messagesSent], "Showdown");
+                messagesSent++;
+            }
+        }
+
+        if (comm.CheckForChildOutput(procout, "PlayerClient"))
+        {
+            std::cout << "Player 1 Wrote Back!" << std::endl;
+            std::cout << procout << std::endl;
         }
     }
 
