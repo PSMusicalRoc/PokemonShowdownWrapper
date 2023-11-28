@@ -25,6 +25,8 @@ public:
     void CreateProcess(const std::string& name, const std::function<void(Process&)>& processFunc);
     void KillProcess(const std::string& name);
     void CheckProcessStatuses();
+    bool IsProcessRunning(const std::string& name);
+
     bool CheckForChildOutput(std::string& outstring, const std::string& procname);
     bool WriteToChildInput(const std::string& message, const std::string& procname);
 };

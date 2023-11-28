@@ -39,10 +39,18 @@ int main() {
     std::string procout;
 
     comm.WriteToChildInput(">start {\"formatid\":\"gen5randombattle\"}\n", "Showdown");
+    comm.WriteToChildInput(">player p1 {\"name\":\"Roc\"}\n", "Showdown");
+    comm.WriteToChildInput(">player p2 {\"name\":\"AI\"}\n", "Showdown");
 
     while (!comm.getProcesses().empty())
     {
         comm.CheckProcessStatuses();
+
+        if (!comm.IsProcessRunning("PlayerClient"))
+        {
+            comm.KillProcess("Showdown");
+        }
+
         if (comm.CheckForChildOutput(procout, "Showdown"))
         {
             std::cout << procout;

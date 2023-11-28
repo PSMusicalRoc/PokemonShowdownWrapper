@@ -72,10 +72,11 @@ void Communicator::KillProcess(const std::string& name)
     
     Process& proc = processes.at(name);
     kill(proc.pid, SIGKILL);
+    std::cout << "Process " << name
+        << " (" << proc.pid
+        << ") killed by Communicator." << std::endl;
     processes.erase(name);
 }
-
-
 
 void Communicator::CheckProcessStatuses()
 {
@@ -106,6 +107,13 @@ void Communicator::CheckProcessStatuses()
             break;
     }
 }
+
+bool Communicator::IsProcessRunning(const std::string& name)
+{
+    return processes.find(name) != processes.end();
+}
+
+
 
 bool Communicator::CheckForChildOutput(std::string& outstring, const std::string& procname)
 {
