@@ -1,3 +1,7 @@
 [submodule "vendor/pokemon-showdown"]
 	path = vendor/pokemon-showdown
 	url = https://github.com/smogon/pokemon-showdown.git
+[submodule "vendor/imgui"]
+	path = vendor/imgui
+	url = https://github.com/ocornut/imgui.git
+	branch = docking
