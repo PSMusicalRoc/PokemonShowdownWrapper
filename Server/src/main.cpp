@@ -26,7 +26,7 @@ void CreatePokemonShowdownProcess(Process& proc)
 void StartPlayerPort(Process& proc)
 {
     char* const argv[] = {NULL};
-    execvp("./player_client", argv);
+    execvp("./player-client", argv);
 
     exit(0);
 }

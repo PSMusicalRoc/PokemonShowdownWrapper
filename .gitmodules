@@ -5,3 +5,11 @@
 	path = vendor/imgui
 	url = https://github.com/ocornut/imgui.git
 	branch = docking
+[submodule "vendor/SDL2"]
+	path = vendor/SDL2
+	url = https://github.com/libsdl-org/SDL_image.git
+	branch = SDL2
+[submodule "vendor/SDL2_image"]
+	path = vendor/SDL2_image
+	url = https://github.com/libsdl-org/SDL_image.git
+	branch = SDL2
