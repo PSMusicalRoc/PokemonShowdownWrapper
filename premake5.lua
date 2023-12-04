@@ -87,9 +87,11 @@ project "install"
     dependson { "server", "player-client" }
 
 buildcommands {
+    "rm -rf build/%{cfg.longname}/vendor",
     "mkdir -p build/%{cfg.longname}/vendor",
     "cp -r res build/%{cfg.longname}",
     "cp -r vendor/pokemon-showdown build/%{cfg.longname}/vendor",
     "cp -r vendor/nodejs build/%{cfg.longname}/vendor",
+    "env PATH=$(pwd)/build/%{cfg.longname}/vendor/nodejs/linux/bin:${PATH} ./build/%{cfg.longname}/vendor/pokemon-showdown/build",
     "cp Server/run_server build/%{cfg.longname}"
 }
