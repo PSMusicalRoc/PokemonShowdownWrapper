@@ -1,0 +1,11 @@
+[submodule "vendor/SDL2"]
+	path = vendor/SDL2
+	url = https://github.com/libsdl-org/SDL.git
+	branch = SDL2
+[submodule "vendor/SDL2_image"]
+	path = vendor/SDL2_image
+	url = https://github.com/libsdl-org/SDL_image.git
+	branch = SDL2
+[submodule "vendor/pokemon-showdown"]
+	path = vendor/pokemon-showdown
+	url = https://github.com/smogon/pokemon-showdown.git
